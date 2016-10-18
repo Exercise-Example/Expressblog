@@ -17,4 +17,9 @@ router.get('/login', function(req, res, next) {
   res.send('登入頁面');
 });
 
+router.post('/test', function(req, res, next) {
+  res.redirect('/test');
+});
+
+
 module.exports = router;

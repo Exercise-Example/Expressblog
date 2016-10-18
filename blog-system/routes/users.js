@@ -16,4 +16,9 @@ router.get('/signin', function(req, res, next) {
   res.send('登入頁面');
 });
 
+/* 登入頁面 */
+router.get('/test', function(req, res, next) {
+  res.render('users/test');
+});
+
 module.exports = router;

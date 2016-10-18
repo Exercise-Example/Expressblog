@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>BMI與體脂肪計算機</title>
+    <link rel="stylesheet" href="../library/css/bootstrap.css">
+    <script src="library/js/jquery-2.2.4.js"></script>
+    <script src="library/js/bootstrap.min.js"></script>
+    <meta	http-equiv="X-UA-Compatible"	content="IE=edge">
+  	<meta	name="viewport"	content="width=device-width,	initial-scale=1">
+
+    <style>
+        .box{
+           padding-left: 130px;
+           padding-top: 30px;
+           padding-right: 100px;
+        }
+        .button{
+           padding-top: 63px;
+        }
+        .sex{
+          padding-top: 63px;
+          padding-top: 30px;
+        }
+        .age{
+          padding-top: 63px;
+          padding-top: 30px;
+        }
+        .fat{
+          padding-top: 63px;
+          padding-top: 30px;
+        }
+        .jude{
+          color:red;
+        }
+        .error{
+          color:red;
+        }
+    </style>
+
+    <script>
+
+      $(function(){
+          $('#button').click(function(){    //當按下按鈕後計算BMI
+
+            var h = $('#height').val(),     //各種宣告
+                w =$('#weight').val(),
+                sex = $('#myselect').val(),
+                age = $('#year').val();
+
+            if(h ==''){                    //防呆
+              document.getElementById('errheight').textContent = '請輸入身高';
+            }else if (w =='') {
+              document.getElementById('errweight').textContent = '請輸入體重';
+            }else if (h>3) {
+              document.getElementById('errheight').textContent = '請輸入單位為公尺';
+            }else if (sex==2) {
+              document.getElementById('errsex').textContent = '請選擇性別';
+            }else if (h<0) {
+              document.getElementById('errheight').textContent = '身高請勿輸入負數';
+            }else if ( w<0) {
+              document.getElementById('errweight').textContent = '體重請勿輸入負數';
+            }else if (age<0) {
+              document.getElementById('errage').textContent = '年齡請勿輸入負數';
+            }else if (age>100) {
+              document.getElementById('errage').textContent = '別開玩笑了...';
+            }else if (age=='') {
+                document.getElementById('errage').textContent = '請輸入年齡';
+            }else {
+              BMI = w /(h*h);    //計算BMI
+              $('#result').val(Math.round(BMI*10)/10);
+
+              fat = 1.2*BMI+0.23*age-5.4-1.08*sex;   //計算體脂肪
+              $('#fat').val(Math.round(fat*10)/10);
+
+                      if (fat>30) {
+                        document.getElementById('jude').textContent = '太胖了該減肥了!!';
+                      }else if (sex == 1 & fat >25) {
+                        document.getElementById('jude').textContent = '太胖了該減肥了!!';
+                      }else {
+                        document.getElementById('jude').textContent = '';
+                      }
+
+              $('#weight').val('');    //clear all
+              $('#height').val('');
+              $('#year').val('');
+              $('#sex').val('');
+                document.getElementById('errheight').textContent = '';
+                document.getElementById('errweight').textContent = '';
+                document.getElementById('errage').textContent = '';
+                document.getElementById('errsex').textContent = '';
+            }
+        });
+      });
+
+    </script>
+
+  </head>
+  <body>
+
+<div class="Bar">
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+      <a class="navbar-brand" href="#">BMI與體脂肪計算</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/users/test" method="post">About</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+ </nav>
+</div>
+
+    <div class="Row">
+
+        <div class="col-md-4 box">
+            <form>
+              <div class="height">
+              <label for="height">請輸入身高(m)</label>
+              <input type="number" class="form-control" id="height" placeholder="hieght">
+              </div>
+            </form>
+              <p id="errheight" class="error"></p>
+          <div class="sex">
+            <label for="sex">性別(sex)</label>
+                <select class="form-control" id="myselect">
+                  <option selected value="2">請選擇性別</option>
+                  <option value="1">男性</option>
+                  <option value="0">女性</option>
+                </select>
+                <p id="errsex" class="error"></p>
+           </div>
+
+        </div>
+
+        <div class="col-md-4 box">
+           <form>
+              <div class="weight">
+              <label for="weight">請輸入體重(kg)</label>
+              <input type="number" class="form-control" id="weight" placeholder="weight">
+              </div>
+            </form>
+              <p id="errweight" class="error"></p>
+            <form>
+               <div class="age">
+               <label for="age">請輸入年齡(year)</label>
+               <input type="number" class="form-control" id="year" placeholder="year">
+               </div>
+            </form>
+             <p id="errage" class="error"></p>
+        </div>
+
+        <div class="col-md-1 button">
+              <label for="button">計算</label>
+            <button type="button" id="button" class="btn btn-default btn-lg btn-block">Claules</button>
+
+        </div>
+
+        <div class="col-md-3 box ">
+          <form>
+             <div class="result">
+             <label for="result">BMI 結果為</label>
+             <input type="number" class="form-control" id="result" readonly="true">
+             </div>
+           </form>
+
+           <form>
+              <div class="fat">
+              <label for="fat">體脂肪(%)結果為</label>
+              <input type="number" class="form-control" id="fat" readonly="true">
+              </div>
+            </form>
+              <p id="jude" class="jude"></p>
+
+        </div>
+    </div>
+  </body>
+</html>
