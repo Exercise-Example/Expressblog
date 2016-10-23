@@ -1,0 +1,20 @@
+extends ../node_modules/jade-bootstrap/_bootstrap
+
+append body
+      .container
+       h1= title
+       p Welcome to #{title} 
+       +checkbox-inline("1")
+       +label-default("Default")
+       +label-primary("Primary")
+       +label-success("Success")
+       +label-info("Info")
+       +label-warning("Warning")
+       +label-danger("Danger")
+       +dropdown("My Dropdown Menu",[
+        {text:"Bootstrap",url:"http://www.getbootstrap.com"},
+        {text:"JADE",url:"http://www.jade-lang.com"},
+        {text:"NodeJS",url:"http://www.nodejs.org"}
+       ])
+
+  
