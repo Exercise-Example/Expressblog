@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
     res.locals.username = req.session.name ;
     res.locals.authenticated = req.session.logined;
     Blog.find( function ( err, blogs, count ){
-        res.render( 'index.jade', {
+        res.render( 'index.ejs', {
             title : 'Blog System',
             blogs: blogs
         });
