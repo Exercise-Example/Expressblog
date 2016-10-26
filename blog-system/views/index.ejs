@@ -1,20 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="bootstrap-3.3.7/favicon.ico">
+
     <title><%= title %></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="bootstrap-3.3.7/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="blog.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="bootstrap-3.3.7/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
+
   <body>
+
+  <div class="blog-masthead">
+    <div class="container">
+      <nav class="blog-nav">
+        <a class="blog-nav-item active" href="/" method="post">Home</a>
+        	<% if (username && authenticated) { %>
+            <a class="blog-nav-item" href="/users/signout" method="post">Sign Out</a>
+            <a class="blog-nav-item" href="/users/add_article" method="post">Add Article</a>
+            <a class="blog-nav-item" href="/users/profile" method="post">Profile</a>
+            <span>Hello~ <%= username %> </span>
+        <% }  else {  %>
+        <a class="blog-nav-item" href="/users/signin" method="post">Log in</a>
+        <a class="blog-nav-item" href="/users/register" method="post">Register</a>
+        <a class="blog-nav-item" href="/users/forget" method="post">Forgot password</a>
+          <a class="blog-nav-item" href="/users/signout" method="post">Sign Out</a>
+          <% }  %>
+
+        <a class="blog-nav-item" href="https://www.facebook.com/TomLupin.xu" method="post">Contract</a>
+      </nav>
+    </div>
+  </div>
+
+    <div class="container">
+
+
 <div style='padding:50px;'>
-	<h1><%= title %></h1>
+	<h1 class="blog-title"><%= title %></h1>
+  <p class="lead blog-description">測試NODE EXPRESS功能與套用模板測試</p>
 </div>
 
+<div class="row">
+
+  <div class="col-sm-8 blog-main">
+  <div class="blog-post">
+<! 載入ejs資料庫功能->
   <% for( var i=0; i< blogs.length; i++) {%>
-  <a style='float:left;margin-top:10px;'><%= blogs[i].Username %></a></br></br>
-  <a style='float:left;margin-top:10px;'><%= blogs[i].CreateDate %></a></br></br>
-  <a style='clear:both'><%= blogs[i].Article %></a>
-  <a href='/users/message/'+article.id, style='float:right;margin-top:105px;margin-right:20px;'> Leave a message </a>
-  <hr style='margin-top:110px;'></hr>
+  <h2 class="blog-post-title">Tite<%= [i+1] %></h2>
+  <P class="blog-post-meta"><%= blogs[i].Username %></a>
+  <p style='clear:both'><%= blogs[i].Article %></p>
+  <a class="blog-post-meta" ><%= blogs[i].CreateDate %></a>
+  <a href='/users/message/'+article.id, style='float:right;margin-top:12px;margin-right:20px;'> Leave a message </a></br>
+  <hr style='margin-top:20px;'></hr>
   <% } %>
+
+  <nav>
+    <ul class="pager">
+      <li><a href="#">Previous</a></li>
+      <li><a href="#">Next</a></li>
+    </ul>
+  </nav>
+  </div><!-- /.blog-main -->
+  </div><!-- /.blog-main -->
+
+  <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    <div class="sidebar-module sidebar-module-inset">
+      <h4>About</h4>
+      <p>未來將放置作品與各種練習進度</p>
+    </div>
+    <div class="sidebar-module">
+      <h4>Archives</h4>
+      <ol class="list-unstyled">
+
+        <% for( var i=0; i< blogs.length; i++) {%>
+
+        <a href="#" class="blog-post-meta" id="test" ><%= blogs[i].CreateDate %></a></br>
+
+        <% } %>
+
+        <li><a href="#">October 2013</a></li>
+        <li><a href="#">September 2013</a></li>
+        <li><a href="#">August 2013</a></li>
+        <li><a href="#">July 2013</a></li>
+        <li><a href="#">June 2013</a></li>
+        <li><a href="#">May 2013</a></li>
+        <li><a href="#">April 2013</a></li>
+      </ol>
+    </div>
+    <div class="sidebar-module">
+      <h4>Elsewhere</h4>
+      <ol class="list-unstyled">
+        <li><a href="https://github.com/gh286991/Expressblog">GitHub</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="https://www.facebook.com/TomLupin.xu">Facebook</a></li>
+      </ol>
+    </div>
+  </div><!-- /.blog-sidebar -->
+
+
+      </div><!-- /.row -->
+</div><!-- /.container -->
   </body>
 </html>

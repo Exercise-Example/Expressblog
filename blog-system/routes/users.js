@@ -4,6 +4,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Blog = mongoose.model('Blog');
 var Comment = mongoose.model('Comment');
+var Member =mongoose.model('Member');
+
 
 /* 使用者註冊頁面. */
 router.get('/register', function(req, res, next) {
@@ -13,6 +15,8 @@ router.get('/register', function(req, res, next) {
     }
     res.render('users/register');
 });
+
+
 
 /* 使用者登入頁面. */
 router.get('/signin', function(req, res, next) {

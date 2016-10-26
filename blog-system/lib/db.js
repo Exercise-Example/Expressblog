@@ -14,6 +14,14 @@ var Comment= new Schema({
     CreateDate: Date
 });
 
+var Member= new Schema({
+    Username:String,
+    Password:String,
+    Nickname:String,
+    CreateDate: Date
+});
+
   mongoose.model('Blog',Blog);
   mongoose.model('Comment',Comment);
+  mongoose.model('Member',Member);
   mongoose.connect('mongodb://localhost/blog');

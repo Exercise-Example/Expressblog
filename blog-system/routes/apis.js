@@ -4,11 +4,9 @@ var router = express.Router();
 var mongoose=require('mongoose');
 var Blog =mongoose.model('Blog');
 var Comment =mongoose.model('Comment');
-
-/* GET users listing. */
-router.get('/apis', function(req, res, next) {
-  res.send('註冊頁面');
-});
+var Member =mongoose.model('Member');
+var dateFormat = require('dateformat');
+var now = new Date();
 
 
 /* 使用者刪除文章功能. */
@@ -28,12 +26,28 @@ router.post('/login', function(req, res, next) {
         res.redirect('/users/register.jade');
         return;
     }
-    req.session.name = req.body.user;
-    req.session.passwd = req.body.passwd;
-    req.session.logined = true;
-    res.redirect('/');
-});
 
+   var query_doc = { Username:req.body.user,Password:req.body.passwd};
+      Member.count(query_doc, function(err, doc){
+       if(doc == 1){//验证成功,转到 欢迎页面
+
+
+          req.session.name = req.body.user;
+          req.session.passwd = req.body.passwd;
+          req.session.logined = true;
+
+           console.log('登入成功');
+           console.log(req.params.Nickname);
+    Member.findOne({Username:req.body.user}, function(err,obj) { console.log(obj); });
+
+            res.redirect('/');
+
+       }else{
+           res.redirect('users/register');
+           console.log('帳密錯誤');
+       }
+     });
+});
 /* 使用者新增文章功能. */
 router.post('/add', function(req, res, next) {
     if (!req.session.name) {
@@ -43,7 +57,8 @@ router.post('/add', function(req, res, next) {
     new Blog({
         Username: req.session.name,
         Article: req.body.Content,
-        CreateDate: Date.now()
+        CreateDate: Date.now("dddd, mmmm dS, yyyy")
+
     }).save( function( err ){
         if (err) {
             console.log('Fail to save to DB.');
@@ -90,5 +105,21 @@ router.post('/comment/:id', function(req, res, next) {
     res.redirect('/users/message/'+req.params.id);
 });
 
+/* 使用者註冊頁面. */
+router.post('/signup', function(req, res, next) {
 
+    new Member({
+        Username: req.body.user,
+        Password: req.body.passwd,
+        Nickname: req.body.nick,
+        CreateDate: Date.now("dddd, mmmm dS, yyyy")
+    }).save( function( err ){
+        if (err) {
+            console.log('Fail to save to DB.');
+            return;
+        }
+        console.log('Save to DB.');
+    });
+    res.redirect('/');
+});
 module.exports = router;
