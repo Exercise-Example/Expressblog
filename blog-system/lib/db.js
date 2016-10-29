@@ -4,7 +4,9 @@ var Schema = mongoose.Schema;
 var Blog = new Schema({
     Username:String,
     Article:String,
-    CreateDate: Date
+    CreateDate: Date,
+    Title: String
+
 });
 
 var Comment= new Schema({

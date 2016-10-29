@@ -13,7 +13,7 @@ router.get('/register', function(req, res, next) {
         res.redirect('/');
         return;
     }
-    res.render('users/register');
+    res.render('users/register.jade');
 });
 
 

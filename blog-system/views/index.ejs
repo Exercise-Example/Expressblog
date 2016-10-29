@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,6 +23,7 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="bootstrap-3.3.7/assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="library/js/moment.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -42,14 +43,13 @@
             <a class="blog-nav-item" href="/users/add_article" method="post">Add Article</a>
             <a class="blog-nav-item" href="/users/profile" method="post">Profile</a>
             <span>Hello~ <%= username %> </span>
-        <% }  else {  %>
-        <a class="blog-nav-item" href="/users/signin" method="post">Log in</a>
-        <a class="blog-nav-item" href="/users/register" method="post">Register</a>
-        <a class="blog-nav-item" href="/users/forget" method="post">Forgot password</a>
-          <a class="blog-nav-item" href="/users/signout" method="post">Sign Out</a>
-          <% }  %>
+          <% }  else {  %>
+            <a class="blog-nav-item" href="/users/signin" method="post">Log in</a>
+            <a class="blog-nav-item" href="/users/register" method="post">Register</a>
+            <a class="blog-nav-item" href="/users/forget" method="post">Forgot password</a>
+            <% }  %>
 
-        <a class="blog-nav-item" href="https://www.facebook.com/TomLupin.xu" method="post">Contract</a>
+        <a class="blog-nav-item" href="https://www.facebook.com/TomLupin.xu" method="post" style="float:right;margin-right:20px;">Contract</a>
       </nav>
     </div>
   </div>
@@ -68,12 +68,17 @@
   <div class="blog-post">
 <! 載入ejs資料庫功能->
   <% for( var i=0; i< blogs.length; i++) {%>
-  <h2 class="blog-post-title">Tite<%= [i+1] %></h2>
-  <P class="blog-post-meta"><%= blogs[i].Username %></a>
+  <h2 class="blog-post-title"><%= blogs[i].Title %></h2>
+  <P class="blog-post-meta">Author: <%= blogs[i].Username %></a>
+
+  <a class="blog-post-meta" >Time: <%= blogs[i].CreateDate %></a>
+<! 載入留言>
+  <div class="Article">
   <p style='clear:both'><%= blogs[i].Article %></p>
-  <a class="blog-post-meta" ><%= blogs[i].CreateDate %></a>
-  <a href='/users/message/'+article.id, style='float:right;margin-top:12px;margin-right:20px;'> Leave a message </a></br>
+  <a href="<%= herf = '/users/message/'+blogs[i].id %>" style='float:right;margin-top:12px;margin-right:20px;'> Leave a message </a></br>
+
   <hr style='margin-top:20px;'></hr>
+  </div>
   <% } %>
 
   <nav>
@@ -93,20 +98,11 @@
     <div class="sidebar-module">
       <h4>Archives</h4>
       <ol class="list-unstyled">
-
         <% for( var i=0; i< blogs.length; i++) {%>
-
-        <a href="#" class="blog-post-meta" id="test" ><%= blogs[i].CreateDate %></a></br>
-
+        <%  var day = blogs[i].Title %>
+        <% console.log(day); %>
+        <li><a href="#" ><%= day %></a><li>
         <% } %>
-
-        <li><a href="#">October 2013</a></li>
-        <li><a href="#">September 2013</a></li>
-        <li><a href="#">August 2013</a></li>
-        <li><a href="#">July 2013</a></li>
-        <li><a href="#">June 2013</a></li>
-        <li><a href="#">May 2013</a></li>
-        <li><a href="#">April 2013</a></li>
       </ol>
     </div>
     <div class="sidebar-module">

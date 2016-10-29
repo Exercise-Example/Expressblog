@@ -31,16 +31,21 @@ router.post('/login', function(req, res, next) {
       Member.count(query_doc, function(err, doc){
        if(doc == 1){//验证成功,转到 欢迎页面
 
-
-          req.session.name = req.body.user;
           req.session.passwd = req.body.passwd;
           req.session.logined = true;
 
            console.log('登入成功');
            console.log(req.params.Nickname);
-    Member.findOne({Username:req.body.user}, function(err,obj) { console.log(obj); });
 
-            res.redirect('/');
+        Member.findOne({Username:req.body.user}, function(err,obj) {
+           console.log(obj);
+           var Nickname = obj.Nickname;
+           console.log(Nickname);
+             req.session.name = Nickname;
+             res.redirect('/');
+         });
+
+
 
        }else{
            res.redirect('users/register');
@@ -57,7 +62,8 @@ router.post('/add', function(req, res, next) {
     new Blog({
         Username: req.session.name,
         Article: req.body.Content,
-        CreateDate: Date.now("dddd, mmmm dS, yyyy")
+        CreateDate: Date.now("dddd, mmmm dS, yyyy"),
+        Title : req.body.Title
 
     }).save( function( err ){
         if (err) {
