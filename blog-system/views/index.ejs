@@ -69,9 +69,17 @@
 <! 載入ejs資料庫功能->
   <% for( var i=0; i< blogs.length; i++) {%>
   <h2 class="blog-post-title"><%= blogs[i].Title %></h2>
-  <P class="blog-post-meta">Author: <%= blogs[i].Username %></a>
+  <P class="blog-post-meta" >Author: <%= blogs[i].Username %></a></br>
+  <a class="blog-post-meta" id="CreateDate">Time: <%= blogs[i].CreateDate %></a>
 
-  <a class="blog-post-meta" >Time: <%= blogs[i].CreateDate %></a>
+<script>
+  var day =  document.getElementById('CreateDate')
+  console.log(moment(day).format('lll'));
+  console.log( document.getElementById('CreateDate'));
+  console.log( day);
+</script>
+
+
 <! 載入留言>
   <div class="Article">
   <p style='clear:both'><%= blogs[i].Article %></p>
